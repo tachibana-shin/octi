@@ -31,16 +31,11 @@ class UpgradeRepoFoss @Inject constructor(
     override val upgradeInfo: Flow<UpgradeRepo.Info> = combine(
         fossCache.upgrade.flow,
         refreshTrigger
-    ) { data, _ ->
-        if (data == null) {
-            Info()
-        } else {
-            Info(
-                isPro = true,
-                upgradedAt = data.upgradedAt,
-                fossUpgradeType = data.upgradeType,
-            )
-        }
+    ) { _, _ ->
+        Info(
+            isPro = true,
+            upgradedAt = kotlinx.datetime.Clock.System.now()
+        )
     }
         .setupCommonEventHandlers(TAG) { "upgradeInfo" }
 
