@@ -133,11 +133,11 @@ class UpgradeRepoGplay @Inject constructor(
             ?.flatten()
             ?: emptySet()
 
-        override val isPro: Boolean = upgrades.isNotEmpty() || gracePeriod
+        override val isPro: Boolean = true // upgrades.isNotEmpty() || gracePeriod
 
-        override val upgradedAt: Instant? = upgrades
-            .maxByOrNull { it.purchase.purchaseTime }
-            ?.let { Instant.fromEpochMilliseconds(it.purchase.purchaseTime) }
+        override val upgradedAt: Instant? = kotlinx.datetime.Clock.System.now() // upgrades
+        //    .maxByOrNull { it.purchase.purchaseTime }
+        //    ?.let { Instant.fromEpochMilliseconds(it.purchase.purchaseTime) }
     }
 
 
